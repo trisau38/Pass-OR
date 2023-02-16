@@ -1,0 +1,23 @@
+.title pass_or
+.include techfile130.txt
+.include Inverter.lib
+
+vdd vdd 0 1.2v
+
+vA A 0 PULSE(0 1.2 2NS 2NS 2NS 500NS 1000NS)
+vB B 0 PULSE(0 1.2 200NS 2NS 2NS 500NS 1000NS)
+
+X1 B B_c vdd inv
+
+Mn1 vout B_c A 0 nmos l=120n w=2400n
+Mn2 vout B vdd 0 nmos l=120n w=2400n
+
+Cload vout 0 200f
+
+.tran 0.1n 2000n 0 0.1n
+
+.control
+run 
+plot v(A) v(B) v(vout)
+.endc
+.end
